@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y 年 %-m 月 %-d 日" }}</time>
+      {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      <span>约 {{ content | number_of_words | divided_by: 300 | plus: 1 }} 分钟</span>
+    </div>
+    <h1>{{ page.title }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <nav class="pager">
+    {% if page.previous.url %}
+      <a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title | truncate: 18 }}</a>
+    {% else %}<span></span>{% endif %}
+    {% if page.next.url %}
+      <a href="{{ page.next.url | relative_url }}">{{ page.next.title | truncate: 18 }} →</a>
+    {% else %}<span></span>{% endif %}
+  </nav>
+</article>

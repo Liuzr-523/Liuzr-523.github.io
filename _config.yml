@@ -1,0 +1,48 @@
+# ── 站点基本信息（改这里） ──────────────────────────
+title: Liuzr-523 的小站
+description: 记录学习、折腾与生活的日常
+author: Liuzr-523
+email: your.email@example.com      # 换成你的邮箱，不想公开就删掉这行
+
+url: "https://liuzr-523.github.io"
+baseurl: ""                       # 仓库名就是 xxx.github.io，所以这里留空
+
+# ── 社交链接（改成你自己的，用不到的直接删掉） ────────
+social:
+  github: liuzr-523
+  # zhihu: your-id
+  # bilibili: your-id
+
+# ── 写作与展示设置 ────────────────────────────────
+lang: zh-CN
+timezone: Asia/Shanghai
+
+permalink: /:year/:month/:title.html
+paginate: 8
+paginate_path: "/page:num/"
+
+# ── GitHub Pages 官方支持的插件，不要改动 ─────────────
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# ── 默认 front matter（新页面自动带上） ──────────────
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
