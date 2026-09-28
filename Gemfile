@@ -1,8 +1,14 @@
-# 本地预览时才需要这个文件的依赖；只在 GitHub 上发布的话可以完全忽略
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.3"
-gem "jekyll-feed"
-gem "jekyll-sitemap"
-gem "jekyll-seo-tag"
-gem "jekyll-paginate"
+gem "jekyll-theme-chirpy", "~> 7.6"
+
+gem "html-proofer", "~> 5.0", group: :test
+
+platforms :windows, :jruby do
+  gem "tzinfo", ">= 1", "< 3"
+  gem "tzinfo-data"
+end
+
+gem "wdm", "~> 0.2.0", :platforms => [:windows]

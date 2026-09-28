@@ -1,34 +1,62 @@
-# ── 站点基本信息（改这里） ──────────────────────────
-title: Liuzr-523 的小站
-description: 记录学习、折腾与生活的日常
-author: Liuzr-523
-email: your.email@example.com      # 换成你的邮箱，不想公开就删掉这行
+# ── 主题 ──────────────────────────────────────────
+theme: jekyll-theme-chirpy
 
-url: "https://liuzr-523.github.io"
-baseurl: ""                       # 仓库名就是 xxx.github.io，所以这里留空
-
-# ── 社交链接（改成你自己的，用不到的直接删掉） ────────
-social:
-  github: liuzr-523
-  # zhihu: your-id
-  # bilibili: your-id
-
-# ── 写作与展示设置 ────────────────────────────────
+# ── 语言与时区 ─────────────────────────────────────
 lang: zh-CN
 timezone: Asia/Shanghai
 
-permalink: /:year/:month/:title.html
-paginate: 8
-paginate_path: "/page:num/"
+# ── 站点信息（想改的话就改这几行） ───────────────────
+title: 刘子睿的小站
+tagline: 记录学习、折腾与生活
+description: >-
+  人工智能、计算机与数据科学方向的学习笔记、课程项目记录，
+  以及写代码时踩过的坑。
 
-# ── GitHub Pages 官方支持的插件，不要改动 ─────────────
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-paginate
+url: "https://liuzr-523.github.io"
 
-# ── 默认 front matter（新页面自动带上） ──────────────
+github:
+  username: liuzr-523
+
+social:
+  name: 刘子睿            # 显示成文章默认作者和页脚版权人
+  email:                  # 填上邮箱就会在侧栏显示邮箱图标，不想公开就留空
+  links:
+    - https://github.com/liuzr-523
+    # 想加别的链接就照着上面那行的格式往下写，比如：
+    # - https://www.zhihu.com/people/你的ID
+
+# ── 侧栏头像 ───────────────────────────────────────
+avatar: /assets/img/avatar.jpg
+
+# ── 外观 ───────────────────────────────────────────
+# 留空＝跟随系统深色/浅色；想固定就写 light 或 dark
+theme_mode:
+toc: true        # 文章右侧显示目录
+paginate: 10
+
+# ── 评论系统（先关着，以后想开再说） ──────────────────
+comments:
+  provider:      # 可选 disqus / utterances / giscus
+
+# ── 以下保持默认即可 ────────────────────────────────
+baseurl: ""
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
 defaults:
   - scope:
       path: ""
@@ -36,13 +64,47 @@ defaults:
     values:
       layout: post
       comments: false
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
   - scope:
       path: ""
-      type: pages
+      type: tabs
     values:
       layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
 
 exclude:
-  - Gemfile
-  - Gemfile.lock
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
   - README.md
+  - LICENSE
+  - purgecss.js
+  - "*.config.js"
+  - "package*.json"
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
