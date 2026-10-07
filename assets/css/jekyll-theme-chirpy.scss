@@ -1,0 +1,131 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+@use 'main';
+
+/* ============================================================
+   薄荷绿主题配色（覆盖 Chirpy 默认色）
+   想微调颜色：改下面两个 mixin 里的色值即可
+   ============================================================ */
+
+@mixin mint-light {
+  --link-color: #0f8f6c;
+  --link-underline-color: #cfe8e0;
+  --toc-highlight: #0f8f6c;
+
+  --sidebar-bg: #f2faf7;
+  --sidebar-border-color: #e4f2ec;
+  --sidebar-hover-bg: rgb(43 185 138 / 12%);
+  --sidebar-active-color: #0f6f56;
+  --site-title-color: #3f8a72;
+  --site-subtitle-color: #6d9c8d;
+
+  --menu-active-color: #0f6f56;
+  --menu-highlight-bg: rgb(43 185 138 / 12%);
+
+  --checkbox-checked-color: #2bb98a;
+  --btn-share-hover-color: #2bb98a;
+  --btn-paginator-hover-color: rgb(43 185 138 / 10%);
+
+  --categories-hover-bg: rgb(43 185 138 / 12%);
+  --categories-icon-hover-color: #0f6f56;
+  --tag-hover: rgb(43 185 138 / 18%);
+  --tag-border: #cfe8e0;
+  --search-tag-bg: #eefaf5;
+
+  --timeline-node-bg: #7fd0b6;
+  --footnote-target-bg: #d7f5ea;
+  --blockquote-border-color: #cdece1;
+  --input-focus-border-color: #8fd6c0;
+  --card-hover-bg: rgb(43 185 138 / 10%);
+  --highlight-bg-color: #f3fbf8;
+  --tb-odd-bg: #f7fcf9;
+}
+
+@mixin mint-dark {
+  --link-color: #5fe0b6;
+  --link-underline-color: rgb(95 224 182 / 40%);
+  --toc-highlight: #5fe0b6;
+
+  --sidebar-bg: #16201d;
+  --sidebar-border-color: #223029;
+  --sidebar-hover-bg: rgb(95 224 182 / 14%);
+  --sidebar-active-color: #d9fff2;
+  --site-title-color: #7fbfa9;
+  --site-subtitle-color: #7d9c92;
+
+  --menu-active-color: #d9fff2;
+  --menu-highlight-bg: rgb(95 224 182 / 14%);
+
+  --checkbox-checked-color: #5fe0b6;
+  --btn-share-hover-color: #5fe0b6;
+  --btn-paginator-hover-color: rgb(95 224 182 / 12%);
+
+  --categories-hover-bg: rgb(95 224 182 / 18%);
+  --categories-icon-hover-color: #ffffff;
+  --tag-hover: rgb(95 224 182 / 22%);
+  --tag-border: rgb(95 224 182 / 35%);
+  --search-tag-bg: #1b2a26;
+
+  --timeline-node-bg: #4fbf9b;
+  --footnote-target-bg: #1f4a3d;
+  --blockquote-border-color: #2e4a41;
+  --input-focus-border-color: #4fbf9b;
+  --card-hover-bg: rgb(95 224 182 / 16%);
+  --inline-code-bg: rgb(95 224 182 / 10%);
+}
+
+/* 浅色（含“跟随系统”时的浅色） */
+:root[data-bs-theme='light'] {
+  @include mint-light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-bs-theme]) {
+    @include mint-light;
+  }
+}
+
+/* 深色 */
+:root[data-bs-theme='dark'] {
+  @include mint-dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme]) {
+    @include mint-dark;
+  }
+}
+
+/* 按钮也跟着变薄荷绿 */
+.btn-primary {
+  --bs-btn-bg: #2bb98a;
+  --bs-btn-border-color: #2bb98a;
+  --bs-btn-hover-bg: #24a578;
+  --bs-btn-hover-border-color: #24a578;
+  --bs-btn-active-bg: #1f8f68;
+  --bs-btn-active-border-color: #1f8f68;
+  --bs-btn-disabled-bg: #7fd0b6;
+  --bs-btn-disabled-border-color: #7fd0b6;
+  --bs-btn-color: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-color: #ffffff;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #1f8f68;
+  --bs-btn-border-color: #2bb98a;
+  --bs-btn-hover-bg: #2bb98a;
+  --bs-btn-hover-border-color: #2bb98a;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: #1f8f68;
+  --bs-btn-active-border-color: #1f8f68;
+}
+
+#back-to-top:hover {
+  color: #2bb98a;
+}

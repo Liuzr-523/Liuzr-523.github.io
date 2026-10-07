@@ -7,10 +7,10 @@ timezone: Asia/Shanghai
 
 # ── 站点信息（想改的话就改这几行） ───────────────────
 title: 刘子睿的小站
-tagline: 记录学习、折腾与生活
+tagline: Attention Is All I Need
 description: >-
-  人工智能、计算机与数据科学方向的学习笔记、课程项目记录，
-  以及写代码时踩过的坑。
+  刘子睿的个人主页：苏州大学未来科学与工程学院大一学生，人工智能方向。
+  记录物理、算法与新鲜科技的学习笔记，课程项目，以及写代码时踩过的坑。
 
 url: "https://liuzr-523.github.io"
 

@@ -30,3 +30,9 @@ assets/js/dist
 *~
 .DS_Store
 Thumbs.db
+
+# ===== 私密空间（切勿提交明文！）=====
+_private/*.md
+!_private/README.md
+accounts.json
+scripts/keys/private_key.pem
