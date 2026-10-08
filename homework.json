@@ -1,0 +1,28 @@
+---
+layout: null
+---
+{
+  "student": "{{ site.social.name }}",
+  "github": "{{ site.github.username }}",
+  "site": "{{ site.url }}",
+  "updated": "{{ site.time | date_to_xmlschema }}",
+  "count": {{ site.posts | where: "hw", true | size }},
+  "assignments": [
+{% assign list = site.posts | where: "hw", true | sort: "hw_seq" -%}
+{% for p in list %}
+    {
+      "seq": "{{ p.hw_seq }}",
+      "course": {{ p.hw_course | default: "" | jsonify }},
+      "title": {{ p.title | jsonify }},
+      "url": "{{ p.url | absolute_url }}",
+      "published": "{{ p.date | date_to_xmlschema }}",
+      "assigned": "{{ p.hw_assigned }}",
+      "due": "{{ p.hw_due }}",
+      "tool": {{ p.hw_tool | default: "" | jsonify }},
+      "status": {{ p.hw_status | default: "wip" | jsonify }},
+      "words": {{ p.content | number_of_words }},
+      "commit_url": "https://github.com/{{ site.github.username }}/{{ site.github.username }}.github.io/commits/main/{{ p.path }}"
+    }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+  ]
+}

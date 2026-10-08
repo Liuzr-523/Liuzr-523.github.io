@@ -94,6 +94,7 @@ exclude:
   - "*.gemspec"
   - docs
   - tools
+  - templates        # 作业模板，不要当网页渲染
   - README.md
   - LICENSE
   - purgecss.js
