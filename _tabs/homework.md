@@ -1,6 +1,7 @@
 ---
 icon: fas fa-clipboard-check
 order: 0
+title: 作业
 ---
 
 ## 作业墙

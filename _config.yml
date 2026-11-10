@@ -1,5 +1,10 @@
 # ── 主题 ──────────────────────────────────────────
-theme: jekyll-theme-chirpy
+# 自建模板：_layouts/ + assets/css/site.css，不再依赖 Chirpy
+plugins:
+  - jekyll-archives   # 生成 /categories/xxx/ 和 /tags/xxx/
+  - jekyll-feed       # 生成 /feed.xml（RSS）
+  - jekyll-sitemap    # 生成 /sitemap.xml
+  - jekyll-seo-tag    # 页面标题、描述、分享卡片
 
 # ── 语言与时区 ─────────────────────────────────────
 lang: zh-CN
@@ -29,10 +34,8 @@ social:
 avatar: /assets/img/avatar.jpg
 
 # ── 外观 ───────────────────────────────────────────
-# 留空＝跟随系统深色/浅色；想固定就写 light 或 dark
-theme_mode:
-toc: true        # 文章右侧显示目录
-paginate: 10
+# 深浅色自动跟随系统
+toc: true        # 文章显示目录（单篇可在 front matter 写 toc: false 关掉）
 
 # ── 评论系统（先关着，以后想开再说） ──────────────────
 comments:
@@ -80,16 +83,11 @@ defaults:
 sass:
   style: compressed
 
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  profile: false
-  blanklines: false
-  ignore:
-    envs: [development]
 
 exclude:
+  - scripts          # 加密 / 审核脚本只在本地用，不发布
+  - accounts.json    # 账号明文清单，绝不能发布
+  - Gemfile.lock
   - "*.gem"
   - "*.gemspec"
   - docs

@@ -1,0 +1,16 @@
+---
+layout: page
+---
+{%- assign cats = site.categories | sort -%}
+{%- if cats.size == 0 %}<p class="empty">还没有分类。在文章开头写 <code>categories: [分类名]</code> 就会出现在这里。</p>{% endif %}
+{%- for c in cats %}
+{%- capture curl %}/categories/{{ c[0] | slugify }}/{% endcapture %}
+<section class="term-group">
+  <h2 class="term-group__title"><a href="{{ curl | relative_url }}">{{ c[0] }}</a><small>{{ c[1].size }} 篇</small></h2>
+  <ol class="post-list post-list--compact">
+    {%- for post in c[1] %}
+    {% include post-item.html post=post compact=true %}
+    {%- endfor %}
+  </ol>
+</section>
+{%- endfor %}

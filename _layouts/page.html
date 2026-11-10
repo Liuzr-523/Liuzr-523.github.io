@@ -1,25 +1,18 @@
 ---
 layout: default
 ---
-
-{% include lang.html %}
-
-<article class="px-1">
-  {% if page.layout == 'page' or page.collection == 'tabs' %}
-    {% assign tab_key = page.title | downcase %}
-    {% assign title = site.data.locales[lang].tabs[tab_key] | default: page.title %}
-    <h1 class="dynamic-title">
-      {{ title }}
-    </h1>
-    <div class="content">
-      {% if page.encrypted %}
-        <div id="encrypted-data" class="d-none">{{ page.ciphertext }}</div>
-        {% include encrypted-page.html %}
-      {% else %}
-        {{ content }}
-      {% endif %}
-    </div>
-  {% else %}
-    {{ content }}
-  {% endif %}
+{%- comment -%}
+  普通页面与「私密空间」共用这个模板。
+  page.encrypted 为 true 时，正文是 scripts/encrypt_private.py 生成的密文，由 _includes/encrypted-page.html 在浏览器里解密。
+{%- endcomment -%}
+<article class="page{% if page.encrypted %} page--locked{% endif %}">
+  <h1 class="page__title">{{ page.title }}</h1>
+  <div class="prose">
+    {%- if page.encrypted %}
+      <div id="encrypted-data" class="d-none">{{ page.ciphertext }}</div>
+      {% include encrypted-page.html %}
+    {%- else %}
+      {{ content }}
+    {%- endif %}
+  </div>
 </article>

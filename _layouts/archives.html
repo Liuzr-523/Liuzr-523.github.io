@@ -1,0 +1,15 @@
+---
+layout: page
+---
+{%- if site.posts.size == 0 %}<p class="empty">还没有文章。</p>{% endif %}
+{%- assign years = site.posts | group_by_exp: "p", "p.date | date: '%Y'" -%}
+{%- for y in years %}
+<section class="archive-year">
+  <h2 class="archive-year__title">{{ y.name }}<small>{{ y.items.size }} 篇</small></h2>
+  <ol class="post-list post-list--compact">
+    {%- for post in y.items %}
+    {% include post-item.html post=post compact=true %}
+    {%- endfor %}
+  </ol>
+</section>
+{%- endfor %}
