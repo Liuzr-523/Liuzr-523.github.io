@@ -1,6 +1,7 @@
 ---
 icon: fas fa-info-circle
 order: 4
+title: 关于
 ---
 
 ## 我是谁

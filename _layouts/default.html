@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1518" media="(prefers-color-scheme: dark)">
+  {% seo %}
+  {% feed_meta %}
+  <link rel="icon" href="{{ site.avatar | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+</head>
+<body class="layout-{{ page.layout | default: 'default' }}">
+  <a class="skip" href="#main">跳到正文</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="nav" aria-label="主导航">
+        {%- assign current = page.url -%}
+        <a href="{{ '/' | relative_url }}"{% if current == '/' %} aria-current="page"{% endif %}>首页</a>
+        {%- assign tabs = site.tabs | sort: 'order' -%}
+        {%- for tab in tabs -%}
+          {%- assign here = false -%}
+          {%- if current == tab.url -%}{%- assign here = true -%}{%- endif -%}
+          {%- if tab.url == '/categories/' and page.type == 'category' -%}{%- assign here = true -%}{%- endif -%}
+          {%- if tab.url == '/tags/' and page.type == 'tag' -%}{%- assign here = true -%}{%- endif -%}
+          <a href="{{ tab.url | relative_url }}"{% if here %} aria-current="page"{% endif %}>{{ tab.title }}</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="main">
+    {{ content }}
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>© {{ site.time | date: '%Y' }} {{ site.social.name }}</p>
+      <ul class="footer__links">
+        <li><a href="https://github.com/{{ site.github.username }}">GitHub</a></li>
+        {%- if site.social.email %}<li><a href="mailto:{{ site.social.email }}">邮箱</a></li>{% endif %}
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS 订阅</a></li>
+        <li><a href="{{ '/homework.json' | relative_url }}">作业台账 JSON</a></li>
+        <li><a href="https://github.com/{{ site.github.username }}/{{ site.github.username }}.github.io">本站源码</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    /* 旧主题（Chirpy）曾在浏览器里注册离线缓存，这里把它注销，老访客才能看到新页面 */
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }).catch(function () {});
+    }
+  </script>
+</body>
+</html>

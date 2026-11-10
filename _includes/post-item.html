@@ -1,0 +1,20 @@
+{%- assign p = include.post -%}
+<li class="post-item">
+  <time class="post-item__date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>
+  <div class="post-item__body">
+    <h3 class="post-item__title">
+      {%- if p.hw %}<span class="hw-tag hw-tag--{{ p.hw_status | default: 'wip' }}">作业 {{ p.hw_seq }}</span>{% endif -%}
+      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+    </h3>
+    {%- unless include.compact %}
+    <p class="post-item__excerpt">
+      {%- if p.description -%}{{ p.description }}{%- else -%}{%- assign body = p.content | split: '</h2>' -%}{%- if body.size > 1 -%}{%- assign body = body | shift | join: ' ' -%}{%- else -%}{%- assign body = p.content -%}{%- endif -%}{{ body | strip_html | strip_newlines | truncate: 110 }}{%- endif -%}
+    </p>
+    {%- if p.categories.size > 0 %}
+    <p class="post-item__meta">
+      {%- for c in p.categories %}{% capture curl %}/categories/{{ c | slugify }}/{% endcapture %}<a href="{{ curl | relative_url }}">{{ c }}</a>{% endfor -%}
+    </p>
+    {%- endif %}
+    {%- endunless %}
+  </div>
+</li>

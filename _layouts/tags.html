@@ -1,0 +1,10 @@
+---
+layout: page
+---
+{%- assign tags = site.tags | sort -%}
+{%- if tags.size == 0 %}<p class="empty">还没有标签。在文章开头写 <code>tags: [标签1, 标签2]</code> 就会出现在这里。</p>{% endif %}
+<ul class="tag-cloud">
+  {%- for t in tags %}{% capture turl %}/tags/{{ t[0] | slugify }}/{% endcapture %}
+  <li><a href="{{ turl | relative_url }}">{{ t[0] }}<small>{{ t[1].size }}</small></a></li>
+  {%- endfor %}
+</ul>

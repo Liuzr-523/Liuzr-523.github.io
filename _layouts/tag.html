@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<article class="page">
+  <p class="page__kicker"><a href="{{ '/tags/' | relative_url }}">全部标签</a></p>
+  <h1 class="page__title">{{ page.title }}</h1>
+  <p class="page__sub">{{ page.posts.size }} 篇文章</p>
+  <ol class="post-list post-list--compact">
+    {%- for post in page.posts %}
+    {% include post-item.html post=post compact=true %}
+    {%- endfor %}
+  </ol>
+</article>

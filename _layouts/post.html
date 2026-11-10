@@ -1,0 +1,97 @@
+---
+layout: default
+---
+<article class="post{% if page.toc != false and site.toc %} has-toc{% endif %}">
+  <header class="post__header">
+    {%- if page.categories.size > 0 %}
+    <p class="post__cat">
+      {%- for c in page.categories %}{% capture curl %}/categories/{{ c | slugify }}/{% endcapture %}<a href="{{ curl | relative_url }}">{{ c }}</a>{% endfor -%}
+    </p>
+    {%- endif %}
+    <h1 class="post__title">{{ page.title }}</h1>
+    <p class="post__meta">
+      <span>发布于 <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time></span>
+      {%- if page.last_modified_at %}
+      <span>更新于 <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%Y-%m-%d" }}</time></span>
+      {%- endif %}
+      <span>约 {{ content | strip_html | strip_newlines | remove: " " | size | divided_by: 100 | times: 100 }} 字</span>
+    </p>
+  </header>
+
+  {%- if page.hw %}
+  <dl class="hw-card" aria-label="作业信息">
+    <div><dt>课程</dt><dd>{{ page.hw_course }}</dd></div>
+    <div><dt>序号</dt><dd>第 {{ page.hw_seq }} 次</dd></div>
+    <div><dt>布置</dt><dd>{{ page.hw_assigned }}</dd></div>
+    <div><dt>截止</dt><dd>{{ page.hw_due }}</dd></div>
+    <div><dt>工具</dt><dd>{{ page.hw_tool }}</dd></div>
+    <div><dt>状态</dt><dd><span class="hw-tag hw-tag--{{ page.hw_status | default: 'wip' }}">{% if page.hw_status == "done" %}完成{% elsif page.hw_status == "wip" %}进行中{% else %}待补{% endif %}</span></dd></div>
+    <div class="hw-card__history"><dt>提交记录</dt><dd><a href="https://github.com/{{ site.github.username }}/{{ site.github.username }}.github.io/commits/main/{{ page.path }}">在 GitHub 上看这篇的每一次修改</a></dd></div>
+  </dl>
+  {%- endif %}
+
+  {%- if page.toc != false and site.toc %}
+  <nav class="toc" aria-label="目录" hidden>
+    <details open>
+      <summary>目录</summary>
+      <ol class="toc__list"></ol>
+    </details>
+  </nav>
+  {%- endif %}
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  {%- if page.tags.size > 0 %}
+  <ul class="post__tags" aria-label="标签">
+    {%- for t in page.tags %}{% capture turl %}/tags/{{ t | slugify }}/{% endcapture %}
+    <li><a href="{{ turl | relative_url }}">{{ t }}</a></li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+
+  {%- if page.previous or page.next %}
+  <nav class="pager" aria-label="上一篇和下一篇">
+    {%- if page.previous %}<a class="pager__prev" href="{{ page.previous.url | relative_url }}"><span>上一篇</span>{{ page.previous.title }}</a>{% endif %}
+    {%- if page.next %}<a class="pager__next" href="{{ page.next.url | relative_url }}"><span>下一篇</span>{{ page.next.title }}</a>{% endif %}
+  </nav>
+  {%- endif %}
+</article>
+
+{%- if page.toc != false and site.toc %}
+<script>
+  (function () {
+    var nav = document.querySelector('.toc');
+    var list = nav && nav.querySelector('.toc__list');
+    var heads = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+    if (!list || heads.length < 2) return;
+    var parent = list, lastLi = null;
+    heads.forEach(function (h) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id; a.textContent = h.textContent;
+      li.appendChild(a);
+      if (h.tagName === 'H3' && lastLi) {
+        var sub = lastLi.querySelector('ol') || lastLi.appendChild(document.createElement('ol'));
+        sub.appendChild(li);
+      } else { list.appendChild(li); lastLi = li; }
+    });
+    nav.hidden = false;
+    if (window.matchMedia('(max-width: 1179px)').matches) nav.querySelector('details').open = false;
+    var links = nav.querySelectorAll('a');
+    var byId = {}; links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (a) { a.removeAttribute('aria-current'); });
+            var a = byId[e.target.id]; if (a) a.setAttribute('aria-current', 'true');
+          }
+        });
+      }, { rootMargin: '0px 0px -70% 0px' });
+      heads.forEach(function (h) { io.observe(h); });
+    }
+  })();
+</script>
+{%- endif %}

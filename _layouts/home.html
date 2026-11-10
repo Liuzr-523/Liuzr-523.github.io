@@ -1,0 +1,42 @@
+---
+layout: default
+---
+{%- assign hw_all = site.posts | where: "hw", true -%}
+{%- assign hw_done = hw_all | where: "hw_status", "done" -%}
+{%- assign hw_sorted = hw_all | sort: "hw_seq" -%}
+{%- assign hw_latest = hw_sorted | last -%}
+
+<section class="hero">
+  <img class="hero__avatar" src="{{ site.avatar | relative_url }}" alt="" width="96" height="96">
+  <div class="hero__text">
+    <h1 class="hero__name">{{ site.social.name }}</h1>
+    <p class="hero__tagline">{{ site.tagline }}</p>
+    <p class="hero__lede">苏州大学未来科学与工程学院大一，人工智能方向。喜欢物理、算法和一切新鲜科技，在这里把学过的东西写清楚。</p>
+    <p class="hero__links">
+      <a href="{{ '/about/' | relative_url }}">关于我</a>
+      <a href="https://github.com/{{ site.github.username }}">GitHub</a>
+    </p>
+  </div>
+</section>
+
+{%- if hw_all.size > 0 %}
+<section class="hw-strip" aria-labelledby="hw-strip-title">
+  <h2 id="hw-strip-title" class="hw-strip__title">人工智能概论作业</h2>
+  <p class="hw-strip__count"><strong>{{ hw_done.size }}</strong> / {{ hw_all.size }} 次已完成</p>
+  <p class="hw-strip__latest">最近一次：<a href="{{ hw_latest.url | relative_url }}">{{ hw_latest.title }}</a></p>
+  <p class="hw-strip__more"><a href="{{ '/homework/' | relative_url }}">查看作业墙</a></p>
+</section>
+{%- endif %}
+
+<section class="posts" aria-labelledby="posts-title">
+  <h2 id="posts-title" class="section-title">文章</h2>
+  {%- if site.posts.size == 0 %}
+  <p class="empty">还没有文章。复制 <code>templates/作业模板.md</code> 到 <code>_posts/</code> 写第一篇。</p>
+  {%- endif %}
+  <ol class="post-list">
+    {%- for post in site.posts %}
+    {% include post-item.html post=post %}
+    {%- endfor %}
+  </ol>
+</section>
+
