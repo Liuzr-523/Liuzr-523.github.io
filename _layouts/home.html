@@ -7,46 +7,16 @@ layout: default
 {%- assign hw_latest = hw_sorted | last -%}
 
 <section class="hero">
-  <div class="hero__intro">
-    <img class="hero__avatar" src="{{ site.avatar | relative_url }}" alt="" width="88" height="88">
+  <img class="hero__avatar" src="{{ site.avatar | relative_url }}" alt="" width="96" height="96">
+  <div class="hero__text">
     <h1 class="hero__name">{{ site.social.name }}</h1>
+    <p class="hero__tagline">{{ site.tagline }}</p>
     <p class="hero__lede">苏州大学未来科学与工程学院大一，人工智能方向。喜欢物理、算法和一切新鲜科技，在这里把学过的东西写清楚。</p>
     <p class="hero__links">
       <a href="{{ '/about/' | relative_url }}">关于我</a>
       <a href="https://github.com/{{ site.github.username }}">GitHub</a>
     </p>
   </div>
-
-  <figure class="attn" data-attn>
-    {%- assign tokens = "Attention,Is,All,I,Need" | split: "," -%}
-    {%- comment -%} 每一行：这个词把注意力怎么分给五个词（每行和为 1）{%- endcomment -%}
-    {%- assign rows = "0.46 0.08 0.12 0.10 0.24|0.30 0.18 0.22 0.12 0.18|0.34 0.10 0.20 0.10 0.26|0.22 0.06 0.10 0.20 0.42|0.40 0.06 0.14 0.22 0.18" | split: "|" -%}
-    <table class="attn__grid" aria-describedby="attn-caption">
-      <thead>
-        <tr>
-          <td></td>
-          {%- for t in tokens %}<th scope="col">{{ t }}</th>{% endfor -%}
-        </tr>
-      </thead>
-      <tbody>
-        {%- for row in rows -%}
-        {%- assign q = tokens[forloop.index0] -%}
-        {%- assign ws = row | split: " " -%}
-        <tr data-row="{{ forloop.index0 }}"{% if q == "I" %} class="is-active"{% endif %}>
-          <th scope="row"><button type="button" data-token="{{ forloop.index0 }}">{{ q }}</button></th>
-          {%- for w in ws -%}
-          {%- assign wf = w | times: 1.0 -%}
-          <td style="--w:{{ w }}" class="{% if wf >= 0.3 %}is-strong{% endif %}" data-w="{{ w }}" title="{{ q }} → {{ tokens[forloop.index0] }}：{{ w }}"><span>{{ w | remove_first: "0" }}</span></td>
-          {%- endfor -%}
-        </tr>
-        {%- endfor -%}
-      </tbody>
-    </table>
-    <figcaption id="attn-caption" class="attn__caption">
-      <span class="attn__readout" aria-live="polite">「I」把最多的注意力给了「Need」（0.42）</span>
-      <span class="attn__hint">这是标语 Attention Is All I Need 的一张自注意力热图：每一行是一个词把注意力分给了谁。点或指一个词试试。</span>
-    </figcaption>
-  </figure>
 </section>
 
 {%- if hw_all.size > 0 %}
@@ -70,27 +40,3 @@ layout: default
   </ol>
 </section>
 
-<script>
-  (function () {
-    var fig = document.querySelector('[data-attn]');
-    if (!fig) return;
-    var rows = fig.querySelectorAll('tbody tr');
-    var heads = fig.querySelectorAll('thead th');
-    var readout = fig.querySelector('.attn__readout');
-    function show(i) {
-      rows.forEach(function (r, j) { r.classList.toggle('is-active', j === i); });
-      var cells = rows[i].querySelectorAll('td');
-      var best = 0;
-      cells.forEach(function (c, j) { if (+c.dataset.w > +cells[best].dataset.w) best = j; });
-      heads.forEach(function (h, j) { h.classList.toggle('is-target', j === best); });
-      var q = rows[i].querySelector('button').textContent;
-      readout.textContent = '「' + q + '」把最多的注意力给了「' + heads[best].textContent + '」（' + cells[best].dataset.w + '）';
-    }
-    rows.forEach(function (r, i) {
-      r.addEventListener('mouseenter', function () { show(i); });
-      r.querySelector('button').addEventListener('focus', function () { show(i); });
-      r.querySelector('button').addEventListener('click', function () { show(i); });
-    });
-    show(3);
-  })();
-</script>

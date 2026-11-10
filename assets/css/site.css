@@ -83,41 +83,16 @@ code, kbd, pre, samp { font-family: var(--mono); font-size: .88em; }
 .footer a { color: var(--muted); }
 .footer a:hover { color: var(--ink); }
 
-/* ---------- 首页 · 介绍 + 注意力热图 ---------- */
+/* ---------- 首页 · 介绍 ---------- */
 .hero {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: 2rem 3.5rem; align-items: center;
-  padding-bottom: 3rem; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 2rem; align-items: start;
+  padding-bottom: 2.5rem; border-bottom: 1px solid var(--line);
 }
-.hero__avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; display: block; margin-bottom: 1.25rem; }
-.hero__name { margin: 0; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.1; font-weight: 800; letter-spacing: .04em; }
-.hero__lede { margin: 1rem 0 0; font-size: 1.125rem; color: var(--muted); max-width: 24em; }
-.hero__links { display: flex; gap: 1.25rem; margin: 1.25rem 0 0; }
-
-.attn { margin: 0; }
-.attn__grid { border-collapse: separate; border-spacing: 4px; width: 100%; table-layout: fixed; }
-.attn__grid th { font-weight: 500; font-size: .9rem; color: var(--muted); padding: 0 0 .25rem; transition: color .2s; }
-.attn__grid thead th { text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.attn__grid thead th.is-target { color: var(--accent); font-weight: 700; }
-.attn__grid thead td { width: 6.2rem; }
-.attn__grid tbody th { text-align: right; padding: 0 .5rem 0 0; }
-.attn__grid tbody th button {
-  font: inherit; color: inherit; background: none; border: 0; padding: .1rem .25rem; cursor: pointer; border-radius: 3px;
-}
-.attn__grid td[data-w] {
-  height: 2.6rem; border-radius: 4px; text-align: center; vertical-align: middle;
-  font: 500 .8rem/1 var(--mono); color: var(--ink);
-  background: color-mix(in srgb, var(--accent) calc(var(--w) * 190%), var(--surface));
-  transition: opacity .2s, transform .2s;
-}
-.attn__grid td.is-strong { color: var(--accent-ink); }
-.attn__grid td span { opacity: 0; transition: opacity .2s; }
-.attn__grid tbody tr { opacity: .32; transition: opacity .2s; }
-.attn__grid tbody tr.is-active { opacity: 1; }
-.attn__grid tbody tr.is-active th { color: var(--ink); font-weight: 700; }
-.attn__grid tbody tr.is-active td span { opacity: 1; }
-.attn__caption { margin-top: .9rem; font-size: .875rem; color: var(--muted); }
-.attn__readout { display: block; color: var(--ink); font-weight: 600; font-size: .95rem; margin-bottom: .25rem; }
+.hero__avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display: block; margin-top: .4rem; }
+.hero__name { margin: 0; font-size: clamp(2.2rem, 4.6vw, 3rem); line-height: 1.15; font-weight: 800; letter-spacing: .04em; }
+.hero__tagline { margin: .35rem 0 0; color: var(--muted); font-size: .95rem; font-style: italic; }
+.hero__lede { margin: 1rem 0 0; font-size: 1.125rem; max-width: 30em; }
+.hero__links { display: flex; gap: 1.25rem; margin: 1rem 0 0; }
 
 /* ---------- 首页 · 作业进度 ---------- */
 .hw-strip {
@@ -319,12 +294,9 @@ textarea.form-control { font-family: var(--mono); font-size: .8rem; resize: vert
 @media (max-width: 760px) {
   body { font-size: 1rem; }
   .main { padding-top: 1.75rem; }
-  .hero { grid-template-columns: 1fr; }
+  .hero { gap: 0 1.1rem; }
   .hero__avatar { width: 64px; height: 64px; }
-  .attn__grid thead td { width: 4.6rem; }
-  .attn__grid th { font-size: .72rem; }
   #encrypted-lock .form-control, #encrypted-lock .btn { flex: 1 1 100%; }
-  .attn__grid td[data-w] { font-size: .68rem; height: 2.1rem; }
   .hw-strip { grid-template-columns: 1fr auto; }
   .hw-strip__latest { grid-column: 1 / -1; }
   .post-item { grid-template-columns: 1fr; }
